@@ -62,17 +62,28 @@ cron.schedule("0 * * * *", () => {
 	}
 });
 
+console.log("Mounting /api/users");
 app.use("/api/users", userRoutes);
+
+console.log("Mounting /api/auth");
 app.use("/api/auth", authRoutes);
+
+console.log("Mounting /api/admin");
 app.use("/api/admin", adminRoutes);
+
+console.log("Mounting /api/songs");
 app.use("/api/songs", songRoutes);
+
+console.log("Mounting /api/albums");
 app.use("/api/albums", albumRoutes);
-app.use ("/api/stats", statsRoutes);
+
+console.log("Mounting /api/stats");
+app.use("/api/stats", statsRoutes);
 
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend" , "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend" , "dist", "index.html"));
   })}
 
 app.use((err,req,res,next) =>{ 
